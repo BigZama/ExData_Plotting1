@@ -1,0 +1,13 @@
+data <- read.table("C:/Coursera/plots/household_power_consumption.txt", header = TRUE, sep = ";", na.strings = "?")
+februarydata <- data[data$Date %in% c("1/2/2007","2/2/2007") ,]
+days <- strptime(paste(februarydata$Date, februarydata$Time, sep = " "), "%d/%m/%Y %H:%M:%S")
+par(mfcol = c(2,2))
+plot(days, februarydata$Global_active_power, type = "l", xlab = "", ylab = "Global Active Power", cex.lab = 0.8)
+plot(days, februarydata$Sub_metering_1, type = "l", xlab = "", ylab = "Energy Submetering", cex.lab = 0.8)
+lines(days, februarydata$Sub_metering_2, type = "l", col = "red")
+lines(days, februarydata$Sub_metering_3, type = "l", col = "blue")
+legend("topright", c("Sub_metering_1", "Sub_metering_2", "Sub_metering_3"), lty = 1, lwd = 2.5, col = c("black", "red", "blue"), bty = "n", cex = 0.6)
+plot(days, februarydata$Voltage, type = "l", xlab = "datatime", ylab = "Voltage", cex.lab = 0.8)
+plot(days, februarydata$Global_reactive_power, type = "l", xlab = "datatime", ylab = "Global_reactive_power", cex.lab = 0.8)
+dev.copy(png, file = "plot4.png", height = 480, width = 480)
+dev.off()
